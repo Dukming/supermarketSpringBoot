@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dkm.supermarket.dao.FirmDao">
+    <resultMap type="Firm" id="firmMap">
+        <id column="firm_id" property="id"/>
+        <result column="firm_name" property="name"/>
+        <result column="firm_address" property="addr"/>
+        <result column="firm_tele" property="tele"/>
+    </resultMap>
+
+    <insert id="insertFirm" parameterType="Firm" useGeneratedKeys="true" keyProperty="id">
+        insert into firm(firm_name, firm_address, firm_tele) values(#{name}, #{addr}, #{tele})
+    </insert>
+
+    <update id="updateFirm" parameterType="Firm">
+        update firm set firm_name=#{name},firm_address=#{addr},firm_tele=#{tele} where firm_id=#{id}
+    </update>
+
+    <select id="getFirm" parameterType="long" resultMap="firmMap">
+        select * from firm where firm_id=#{id}
+    </select>
+
+    <select id="selectAllFirm" resultMap="firmMap">
+        select * from firm
+    </select>
+
+    <select id="findFirmsByName" parameterType="string" resultMap="firmMap">
+        select * from firm where firm_name like concat('%',#{firmName},'%')
+    </select>
+
+</mapper>

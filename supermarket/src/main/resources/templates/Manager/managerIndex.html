@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript">
+        function toManageEmp(){
+            window.location="/emp/info";
+        }
+        function toManageFirm(){
+            window.location="/firm/info";
+        }
+        function toManageGood(){
+            window.location="/good/info";
+        }
+        function toSelectSale(){
+            window.location="/sale/select";
+        }
+        function toSelectStock(){
+            window.location="/stock/select";
+        }
+        function toManageMenber(){
+            window.location="/menber/info";
+        }
+    </script>
+    <title>经理后台管理</title>
+</head>
+<body>
+<div align="center">
+    <br/><br/><br/><br/><br/><br/><br/><br/>
+    <input type="button" value="管理员工信息" onClick="toManageEmp()" /><br/>
+    <input type="button" value="管理厂商信息" onClick="toManageFirm()" /><br/>
+    <input type="button" value="管理商品信息" onClick="toManageGood()" /><br/>
+    <input type="button" value="查看销售情况" onClick="toSelectSale()" /><br/>
+    <input type="button" value="查看进货情况" onClick="toSelectStock()" /><br/>
+    <input type="button" value="查看会员情况" onClick="toManageMenber()" /><br/>
+</div>
+</body>
+</html>

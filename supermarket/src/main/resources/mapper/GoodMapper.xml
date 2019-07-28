@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dkm.supermarket.dao.GoodDao">
+    <resultMap type="Good" id="goodMap">
+        <id column="good_id" property="id"/>
+        <result column="good_name" property="name"/>
+        <result column="good_price" property="price"/>
+        <result column="is_allow_discount" property="isAllowDiscount"/>
+        <result column="good_inventory_amount" property="inventoryAmount"/>
+        <result column="good_warn_amount" property="warnAmount"/>
+        <result column="is_warn" property="isWarn"/>
+        <result column="good_purchase_amount" property="purchaseAmount"/>
+        <result column="is_sell" property="isSell"/>
+        <association property="firm"  javaType="Firm">
+            <id column="firm_id" property="id"/>
+            <result column="firm_name" property="name"/>
+            <result column="firm_address" property="addr"/>
+            <result column="firm_tele" property="tele"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertGood" parameterType="Good" useGeneratedKeys="true" keyProperty="id">
+        insert into good(good_id,firm_id,good_name,good_price,is_allow_discount,
+        good_inventory_amount,good_warn_amount,good_purchase_amount,is_sell)
+         values(#{id}, #{firm.id}, #{name},#{price},#{isAllowDiscount},#{inventoryAmount},
+         #{warnAmount},#{purchaseAmount},#{isSell})
+    </insert>
+
+    <update id="updateGood" parameterType="Good">
+        update good set firm_id=#{firm.id},good_name=#{name},
+        good_price=#{price},is_allow_discount=#{isAllowDiscount},
+        good_inventory_amount=#{inventoryAmount},good_warn_amount=#{warnAmount},
+        good_purchase_amount=#{purchaseAmount},is_sell=#{isSell}
+         where good_id=#{id}
+    </update>
+
+    <update id="updateGoodInventoryAmountByIdIn" >
+        UPDATE good SET good_inventory_amount = good_inventory_amount+#{amount} WHERE good_id=#{id}
+    </update>
+
+    <update id="updateGoodInventoryAmountByIdOut" >
+        UPDATE good SET good_inventory_amount = good_inventory_amount-#{amount} WHERE good_id=#{id}
+    </update>
+
+    <select id="getGood" parameterType="long" resultMap="goodMap">
+        select good_id,good.firm_id,good_name,good_price,is_allow_discount,
+        good_inventory_amount,good_warn_amount,is_warn,good_purchase_amount,is_sell
+        from good LEFT JOIN firm ON firm.firm_id=good.firm_id
+        where good_id=#{id}
+    </select>
+
+    <select id="selectAllGood"  resultMap="goodMap">
+        SELECT * FROM good_firm
+    </select>
+
+    <select id="selectGoodByMultItem"  resultMap="goodMap">
+        SELECT * FROM good_firm WHERE 1=1
+        <if test="good.name != null and good.name !='' ">
+            AND good_name LIKE concat('%', #{good.name}, '%')
+        </if>
+        <if test="good.firm.name != null and good.firm.name !='' ">
+            AND firm_name LIKE concat('%', #{good.firm.name}, '%')
+        </if>
+        <if test="good.isAllowDiscount != null and good.isAllowDiscount != 2  ">
+            AND is_allow_discount = #{good.isAllowDiscount}
+        </if>
+        <if test="good.isWarn != null and good.isWarn != 2 ">
+            AND is_warn = #{good.isWarn}
+        </if>
+        <if test="good.isSell != null and good.isSell != 2 ">
+            AND is_sell = #{good.isSell}
+        </if>
+        <if test="isOrder != null and isOrder == 1 ">
+            ORDER BY good_inventory_amount
+        </if>
+    </select>
+
+</mapper>

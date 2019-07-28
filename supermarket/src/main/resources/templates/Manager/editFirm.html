@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<form action="/firm/updateFirm" method="post" align="center">
+    <input type="hidden" name="id" th:value="${firm.id }"/>
+    厂商编号:<input type="text" name="id" th:value="${firm.id }" disabled/><br/>
+    厂商名称:<input type="text" name="name" th:value="${firm.name }"/><br/>
+    厂商地址:<input type="text" name="addr" th:value="${firm.addr }"/><br/>
+    厂商电话:<input type="text" name="tele" th:value="${firm.tele }"/><br/>
+    <input type="submit" value="确定修改" /> <a href = "/firm/show" align="center"><input type="button" value="返回" /></a>
+</form>
+</body>
+</html>

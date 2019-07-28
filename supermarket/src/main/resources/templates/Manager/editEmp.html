@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<form action="/emp/updateEmp" method="post" align="center">
+    <input type="hidden" name="id" th:value="${emp.id }" />
+    员工编号:<input type="text" name="id" th:value="${emp.id }" disabled/><br/>
+    员工姓名:<input type="text" name="name" th:value="${emp.name }"/><br/>
+    员工类型:<label><input name="type" type="radio" value="1"  checked th:if="${emp.type==1}" th:text="经理"/> </label>
+    <label><input name="type" type="radio" value="2"  th:if="${emp.type==1}" th:text="收银员"/> </label>
+    <label><input name="type" type="radio" value="3"  th:if="${emp.type==1}" th:text="业务员"/></label> <br th:if="${emp.type==1}"/>
+    <br th:if="${emp.type==1}"/>
+    <label><input name="type" type="radio" value="1"  th:if="${emp.type==2}" th:text="经理"/> </label>
+    <label><input name="type" type="radio" value="2"  checked th:if="${emp.type==2}" th:text="收银员"/> </label>
+    <label><input name="type" type="radio" value="3"  th:if="${emp.type==2}" th:text="业务员"/> </label> <br th:if="${emp.type==2}" />
+    <br th:if="${emp.type==2}"/>
+    <label><input name="type" type="radio" value="1"  th:if="${emp.type==3}" th:text="经理"/> </label>
+    <label><input name="type" type="radio" value="2"  th:if="${emp.type==3}" th:text="收银员"/> </label>
+    <label><input name="type" type="radio" value="3"  checked th:if="${emp.type==3}" th:text="业务员"/> </label> <br th:if="${emp.type==3}" />
+    <br th:if="${emp.type==3}"/>
+    <input type="submit" value="确定修改" /> <a href = "/emp/show" align="center"><input type="button" value="返回" /></a>
+</form>
+</body>
+</html>

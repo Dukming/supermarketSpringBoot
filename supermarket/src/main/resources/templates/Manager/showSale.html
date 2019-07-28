@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>销售记录</title>
+</head>
+<body>
+<table id="table" border="1" align="center">
+    <tr>
+        <th>销售编号</th>
+        <th>商品编号</th>
+        <th>商品名称</th>
+        <th>收银员编号</th>
+        <th>收银员姓名</th>
+        <th>销售数量</th>
+        <th>销售单价</th>
+        <th>是否打折</th>
+        <th>销售日期</th>
+    </tr>
+    <tr th:if="${saleList}!=null" th:each="sale:${saleList}" >
+        <td align="center" th:text="${sale.id}"></td>
+        <td align="center" th:text="${sale.good.id}"></td>
+        <td align="center" th:text="${sale.good.name}"></td>
+        <td align="center" th:text="${sale.emp.id}"></td>
+        <td align="center" th:text="${sale.emp.name}"></td>
+        <td align="center" th:text="${sale.amount}"></td>
+        <td align="center" th:text="${sale.unitPrice/100.0}"></td>
+        <td align="center" th:if="${sale.isDiscount == 0}" th:text="否"></td>
+        <td align="center" th:if="${sale.isDiscount == 1}" th:text="是"></td>
+        <td align="center" th:text="${sale.date}"></td>
+    </tr>
+    <tr >
+        <td colspan="9" th:text="'合计：'+${sum/100.0}+'元'"></td>
+    </tr>
+</table><br/>
+<center><a href = "/sale/select" align="center"><input type="button" value="返回" /></a></center>
+
+</body>
+</html>

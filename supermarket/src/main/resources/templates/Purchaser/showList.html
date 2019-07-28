@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>进货清单</title>
+</head>
+<body>
+<table border="1" align="center">
+    <tr>
+        <th>商品编号</th>
+        <th>商品名称</th>
+        <th>商品进货价</th>
+        <th>数量</th>
+        <th>总价</th>
+    </tr>
+    <tr th:if="${goodList!=null}" th:each="good,loop:${goodList}">
+        <td align="center" th:text="${good.id}"></td>
+        <td align="center" th:text="${good.name}"></td>
+        <td align="center" th:text="${priceList[loop.count-1]/100.0}"></td>
+        <td align="center" th:text="${amountList[loop.count-1]}"></td>
+        <td align="center" th:text="${amountList[loop.count-1] * priceList[loop.count-1]/100.0}"></td>
+    </tr>
+    <tr >
+        <td colspan="5" th:text="'合计：'+${sum/100.0}+'元'"></td>
+    </tr>
+
+</table><br/>
+<center><a href = "/purchaser/index" align="center"><input type="button" value="回到主页" /></a></center>
+
+</body>
+</html>

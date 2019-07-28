@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>查询进货记录</title>
+</head>
+<body>
+<body>
+<form action="/stock/show" method="get" align="center" >
+    商品名称:<input type="text" name="goodName" th:value="${param.name}"/> <br/>
+    员工姓名:<input type="text" name="empName" th:value="${param.firmName}"/> <br/>
+    截止时间：<input type="date" name="minTime" /> —— <input type="date" name="maxTime" /><br/></br>
+    <input type="submit" value="查询"  />
+</form></br>
+<center><a href = "/login/managerIndex" align="center"><input type="button" value="返回" /></a></center>
+</body>
+</body>
+</html>

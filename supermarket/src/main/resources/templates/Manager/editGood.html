@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>修改商品信息</title>
+</head>
+<body>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<form action="/good/updateGood" method="post" align="center">
+
+    商品编号:<input type="text" name="id" th:value="${good.id }" readonly/><br/>
+    商品名称:<input type="text" name="name" th:value="${good.name }"/><br/>
+    厂商编号:<input type="text" name="firmID" th:value="${good.firm.id }"/><br/>
+    商品售价:<input type="text" name="price" th:value="${good.price/100.0}"/><br/>
+    当前库存数:<input type="text" name="inventoryAmount" th:value="${good.inventoryAmount }"/><br/>
+    库存警戒数:<input type="text" name="warnAmount" th:value="${good.warnAmount }"/><br/>
+    计划进货数:<input type="text" name="purchaseAmount" th:value="${good.purchaseAmount }"/><br/>
+    是否允许打折：<input name="isDiscount" type="radio" th:value="1" th:if="${good.isAllowDiscount == 1}" checked th:text="允许"/>
+    <input name="isDiscount" type="radio" value="0" th:if="${good.isAllowDiscount == 1}" th:text="不允许"/>
+    <br th:if="${good.isAllowDiscount == 1}"/>
+    <input name="isDiscount" type="radio" th:value="1" th:if="${good.isAllowDiscount == 0}" th:text="允许"/>
+    <input name="isDiscount" type="radio" value="0" th:if="${good.isAllowDiscount == 0}" checked th:text="不允许"/>
+    <br th:if="${good.isAllowDiscount == 0}"/>
+    是否允许销售：<input name="isSell" type="radio" value="1" th:if="${good.isSell == 1}" checked th:text="允许"/>
+    <input name="isSell" type="radio" value="0" th:if="${good.isSell == 1}" th:text="不允许"/>
+    <br th:if="${good.isSell == 1}"/><br th:if="${good.isSell == 1}"/>
+    <input name="isSell" type="radio" value="1" th:if="${good.isSell == 0}" th:text="允许"/>
+    <input name="isSell" type="radio" value="0" th:if="${good.isSell == 0}" checked th:text="不允许"/>
+    <br th:if="${good.isSell == 0}"/><br th:if="${good.isSell == 0}"/>
+    <input type="submit" value="确定修改" /> <a href = "/good/show" align="center"><input type="button" value="返回" /></a>
+</form>
+</body>
+</html>

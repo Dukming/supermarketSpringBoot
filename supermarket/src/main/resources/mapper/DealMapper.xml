@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dkm.supermarket.dao.DealDao">
+    <resultMap id="dealMap" type="Deal">
+        <id column="deal_id" property="id"/>
+        <result column="deal_money" property="money"/>
+        <result column="deal_date" property="date"/>
+        <association property="menber" javaType="Menber">
+            <id column="menber_id" property="id"/>
+            <result column="menber_sum_money" property="sumOfMoney"/>
+            <result column="menber_current_score" property="currentScore"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertDeal" parameterType="Deal" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO deal(menber_id, deal_money,deal_date) values(#{menber.id},#{money},now())
+    </insert>
+
+    <select id="getDealByMenberId" parameterType="long" resultMap="dealMap">
+        SELECT * FROM deal WHERE menber_id=#{menberID}
+    </select>
+
+</mapper>

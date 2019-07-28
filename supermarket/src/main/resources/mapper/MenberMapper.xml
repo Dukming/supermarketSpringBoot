@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dkm.supermarket.dao.MenberDao">
+    <resultMap type="Menber" id="menberMap">
+        <id column="menber_id" property="id"/>
+        <result column="menber_sum_money" property="sumOfMoney"/>
+        <result column="menber_current_score" property="currentScore"/>
+    </resultMap>
+
+    <insert id="insertMenber" parameterType="Menber" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO menber(menber_id, menber_sum_money, menber_current_score) values(#{id},#{sumOfMoney},#{currentScore})
+    </insert>
+
+    <select id="getMenber" parameterType="Long" resultMap="menberMap">
+        SELECT * FROM menber WHERE menber_id=#{id}
+    </select>
+
+    <select id="getAllMenber" resultMap="menberMap">
+        SELECT * FROM menber
+    </select>
+
+    <update id="updateMenber" parameterType="Menber">
+        UPDATE menber SET menber_sum_money=#{sumOfMoney},menber_current_score=#{currentScore} WHERE menber_id=#{id}
+    </update>
+
+</mapper>

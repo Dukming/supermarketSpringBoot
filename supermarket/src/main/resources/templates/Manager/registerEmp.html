@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>注册员工账号</title>
+</head>
+<body>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<form action="/emp/regist" method="post" align="center">
+    姓	名:<input type="text" name="name" /><br/>
+    密	码:<input type="password" name="password"/><br/>
+    员工类型：<input name="empType" type="radio" value="1"/>经理
+    <input name="empType" type="radio" value="2" checked="checked"/>收银员
+    <input name="empType" type="radio" value="3"/>业务员
+    <br/><br/>
+    <input type="submit" value="注册" /> <a href = "/emp/info" align="center"><input type="button" value="返回" /></a>
+</form>
+</body>
+</html>

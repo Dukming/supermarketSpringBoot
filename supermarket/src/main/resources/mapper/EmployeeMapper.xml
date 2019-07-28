@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dkm.supermarket.dao.EmployeeDao">
+    <resultMap type="Employee" id="employeeMap">
+        <id column="employee_id" property="id" />
+        <result column="employee_name" property="name" />
+        <result column="employee_password" property="password" />
+        <result column="employee_type" property="type" />
+        <result column="is_delete" property="isDelete" />
+        <result column="salt" property="salt" />
+    </resultMap>
+
+    <insert id="insertEmp"  useGeneratedKeys="true" keyProperty="employee.id">
+      INSERT INTO employee(employee_name,employee_password,employee_type,salt) values(#{employee.name},md5(#{newPassword}),#{employee.type},#{employee.salt})
+    </insert>
+
+    <update id="updateEmp" parameterType="Employee">
+       UPDATE employee SET employee_name=#{name},employee_type=#{type} WHERE employee_id=#{id}
+    </update>
+
+    <update id="updateEmpIsDel" >
+       UPDATE employee SET is_delete=#{isDelete} WHERE employee_id=#{id}
+    </update>
+
+    <update id="updateEmpPW" >
+        UPDATE employee SET employee_password=md5(#{newPassword}) WHERE employee_id=#{employee.id}
+    </update>
+
+    <select id="getEmp" parameterType="long" resultMap="employeeMap">
+        SELECT * FROM employee WHERE employee_id=#{id}
+    </select>
+
+    <select id="selectAllEmp"  resultMap="employeeMap">
+        SELECT * FROM employee
+    </select>
+
+    <select id="checkPW"  resultMap="employeeMap">
+        SELECT * FROM employee WHERE employee_id=#{id} AND employee_password=md5(#{password})
+    </select>
+
+    <select id="selectEmpAuthority" parameterType="long" resultType="string">
+        select authority from employee LEFT JOIN role_authority on employee_type = role where employee_id = #{id}
+    </select>
+
+</mapper>

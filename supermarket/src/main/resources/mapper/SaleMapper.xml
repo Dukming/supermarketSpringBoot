@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dkm.supermarket.dao.SaleDao">
+    <resultMap type="Sale" id="saleMap">
+        <id column="sale_id" property="id"/>
+        <result column="sale_amount" property="amount"/>
+        <result column="sale_unit_price" property="unitPrice"/>
+        <result column="is_discount" property="isDiscount"/>
+        <result column="sale_date" property="date"/>
+        <association property="good"  javaType="Good">
+            <id column="good_id" property="id"/>
+            <result column="good_name" property="name"/>
+            <result column="good_price" property="price"/>
+            <result column="is_allow_discount" property="isAllowDiscount"/>
+            <result column="good_inventory_amount" property="inventoryAmount"/>
+            <result column="good_warn_amount" property="warnAmount"/>
+            <result column="is_warn" property="isWarn"/>
+            <result column="good_purchase_amount" property="purchaseAmount"/>
+            <result column="is_sell" property="isSell"/>
+            <association property="firm"  javaType="Firm">
+                <id column="firm_id" property="id"/>
+                <result column="firm_name" property="name"/>
+                <result column="firm_address" property="addr"/>
+                <result column="firm_tele" property="tele"/>
+            </association>
+        </association>
+        <association property="emp"  javaType="Employee">
+            <id column="employee_id" property="id" />
+            <result column="employee_name" property="name" />
+            <result column="employee_password" property="password" />
+            <result column="employee_type" property="type" />
+            <result column="is_delect" property="isDelete" />
+        </association>
+    </resultMap>
+
+    <insert id="insertSale" parameterType="Sale" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sale(good_id, employee_id, sale_amount, sale_unit_price, is_discount, sale_date)
+        values(#{good.id},#{emp.id},#{amount},#{unitPrice},#{isDiscount},now())
+    </insert>
+
+    <select id="selectSaleByMultItem"  resultMap="saleMap">
+        SELECT * FROM sale_good_emp WHERE sale_date between #{minTime} AND #{maxTime}
+        <if test="sale.good.name != null and sale.good.name !='' ">
+            AND good_name LIKE concat('%', #{sale.good.name}, '%')
+        </if>
+        <if test="sale.emp.name != null and sale.emp.name !='' ">
+            AND employee_name LIKE concat('%', #{sale.emp.name}, '%')
+        </if>
+    </select>
+
+</mapper>

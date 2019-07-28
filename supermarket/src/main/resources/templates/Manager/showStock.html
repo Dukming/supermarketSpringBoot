@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>进货记录</title>
+</head>
+<body>
+<table border="1" align="center">
+    <tr>
+        <th>进货编号</th>
+        <th>商品编号</th>
+        <th>商品名称</th>
+        <th>业务员编号</th>
+        <th>业务员姓名</th>
+        <th>进货数量</th>
+        <th>进货单价</th>
+        <th>总价</th>
+        <th>进货日期</th>
+    </tr>
+    <tr th:if="${stockList!=null}" th:each="stock:${stockList}">
+        <td align="center" th:text="${stock.id}"></td>
+        <td align="center" th:text="${stock.good.id}"></td>
+        <td align="center" th:text="${stock.good.name}"></td>
+        <td align="center" th:text="${stock.emp.id}"></td>
+        <td align="center" th:text="${stock.emp.name}"></td>
+        <td align="center" th:text="${stock.amount}"></td>
+        <td align="center" th:text="${stock.price/100.0}"></td>
+        <td align="center" th:text="${stock.price/100.0 * stock.amount}"></td>
+        <td align="center" th:text="${stock.date}"></td>
+    </tr>
+    <tr >
+        <td colspan="9" th:text="'合计：'+${sum/100.0}+'元' "></td>
+    </tr>
+</table><br/>
+<center><a href = "/stock/select" align="center"><input type="button" value="返回" /></a></center>
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>员工列表</title>
+</head>
+<body>
+<table border="1" align="center">
+    <tr>
+        <th>员工编号</th>
+        <th>员工姓名</th>
+        <th>员工类型</th>
+        <th>是否离职</th>
+        <th>修改密码</th>
+        <th>操作</th>
+    </tr>
+    <tr th:if="${empList!=null}" th:each="emp:${empList}">
+        <td align="center" th:text="${emp.id}"></td>
+        <td align="center" th:text="${emp.name}"></td>
+        <td align="center">
+            <span th:if="${emp.type == 1}" >
+                经理
+            </span>
+            <span th:if="${emp.type == 2}" >
+                收银员
+            </span>
+            <span th:if="${emp.type == 3}" >
+                业务员
+            </span>
+        </td>
+        <td align="center">
+            <span th:if="${emp.isDelete == 0}" >
+                否
+            </span>
+            <span th:if="${emp.isDelete == 1}" >
+                是
+            </span>
+        </td>
+        <td align="center">
+            <form action="/emp/updatePW" method="post" >
+                <input type="hidden" name="id" th:value="${emp.id }"/>
+                <input type="password" name="password" />
+                <input type="submit" value="修改" />
+            </form>
+        </td>
+        <td align="center"><a th:href = "@{/emp/edit(id=${emp.id})}"><input type="button" value="修改"/></a>
+            <a th:href = "@{/emp/del(id=${emp.id},isDelete=1)}"><input type="button" value="禁用"/></a>
+            <a th:href = "@{/emp/del(id=${emp.id},isDelete=0)}"><input type="button" value="启用"/></a>
+        </td>
+
+
+
+    </tr>
+</table><br/>
+<center><a href = "/emp/info" align="center"><input type="button" value="返回" /></a></center>
+
+</body>
+</html>
